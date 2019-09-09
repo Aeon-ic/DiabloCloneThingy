@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Item
 {
-  private Sprite icon;
   public enum itemType
   {
     Head,
@@ -13,13 +13,10 @@ public class Item
     RightHand,
     LeftHand
   }
+
+  private Sprite icon;
   public Color color;
   public itemType type;
-
-  public Item()
-  {
-
-  }
 
   public Item(int intType, Color newColor)
   {
