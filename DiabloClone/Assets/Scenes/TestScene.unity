@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 383723826}
   - component: {fileID: 383723825}
   - component: {fileID: 383723824}
+  - component: {fileID: 383723828}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -493,6 +494,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383723828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383723823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9083fdee68d1d4f913f6f510af15ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySize: 9
+  equipSlots: 5
+  inventory: []
+  equipment: []
 --- !u!1 &512939065
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class PlayerInventory : MonoBehaviour
   [HideInInspector]
   public List<Item> equipment;
 
-  bool PickupItem(Item item)
+  public bool PickupItem(Item item)
   {
     if (inventory.Count < inventorySize)
     {
@@ -22,5 +22,30 @@ public class PlayerInventory : MonoBehaviour
     {
       return false;
     }
+  }
+
+  public bool EquipItem(int inventoryIndex, int equipIndex)
+  {
+    if ((int) inventory[inventoryIndex].type == equipIndex)
+    {
+      Item swappedItem = equipment[equipIndex];
+      equipment[equipIndex] = inventory[inventoryIndex];
+      inventory[inventoryIndex] = swappedItem;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  public void DisplayInventory()
+  {
+    Debug.Log("================================");
+    foreach(Item item in inventory)
+    {
+      Debug.Log(item.type);
+    }
+    Debug.Log("==================================");
   }
 }
