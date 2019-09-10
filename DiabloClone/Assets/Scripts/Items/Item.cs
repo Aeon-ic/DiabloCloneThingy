@@ -6,7 +6,7 @@ using UnityEditor;
 [System.Serializable]
 public class Item
 {
-  public enum itemType
+  public enum ItemType
   {
     Head,
     Torso,
@@ -17,35 +17,35 @@ public class Item
 
   public Sprite icon;
   public Color color;
-  public itemType type;
+  public ItemType type;
 
   public Item(int intType, Color newColor)
   {
     switch (intType)
     {
       case 0:
-        type = itemType.Head;
-        icon = (Sprite) AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.3_38.png", typeof(Sprite));
+        type = ItemType.Head;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.3_38.png");
         break;
       case 1:
-        type = itemType.Torso;
-        icon = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.6_94.png", typeof(Sprite));
+        type = ItemType.Torso;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.6_94.png");
         break;
       case 2:
-        type = itemType.Boots;
-        icon = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.1_95.png", typeof(Sprite));
+        type = ItemType.Boots;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.1_95.png");
         break;
       case 3:
-        type = itemType.RightHand;
-        icon = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.4_76.png", typeof(Sprite));
+        type = ItemType.RightHand;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.4_76.png");
         break;
       case 4:
-        type = itemType.LeftHand;
-        icon = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.1_88.png", typeof(Sprite));
+        type = ItemType.LeftHand;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.1_88.png");
         break;
       default:
-        type = itemType.Head;
-        icon = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Icons/Icon.3_38.png", typeof(Sprite));
+        type = ItemType.Head;
+        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.3_38.png");
         break;
     }
 
