@@ -22,28 +22,32 @@ public class PlayerInputManager : MonoBehaviour
     //Basic key inputs testing inventory (will be removed later)
     if (Input.GetKeyDown(KeyCode.Alpha1))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(0, new Color(UnityEngine.Random.Range(0f,255f), UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f))));
+      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(0, new Color(UnityEngine.Random.Range(0f,1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
     if (Input.GetKeyDown(KeyCode.Alpha2))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(1, new Color(UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f))));
+      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(1, new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
     if (Input.GetKeyDown(KeyCode.Alpha3))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(2, new Color(UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f))));
+      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(2, new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
     if (Input.GetKeyDown(KeyCode.Alpha4))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(3, new Color(UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f))));
+      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(3, new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
     if (Input.GetKeyDown(KeyCode.Alpha5))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(4, new Color(UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f), UnityEngine.Random.Range(0f, 255f))));
+      GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(4, new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
 
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Backslash))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().DisplayInventory();
+      GameObject.Find("Player").GetComponent<PlayerInventory>().EquipItem(0, 3);
+    }
+    if (Input.GetKeyDown(KeyCode.RightBracket))
+    {
+      GameObject.Find("Player").GetComponent<PlayerInventory>().DeleteItem(0);
     }
   }
 }

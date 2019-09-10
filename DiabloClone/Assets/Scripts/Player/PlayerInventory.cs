@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -7,9 +6,14 @@ public class PlayerInventory : MonoBehaviour
   public int inventorySize = 9;
   public int equipSlots = 5;
   [HideInInspector]
-  public List<Item> inventory;
+  public List<Item> inventory = new List<Item>();
   [HideInInspector]
-  public List<Item> equipment;
+  public Item[] equipment;
+
+  private void Awake()
+  {
+    equipment = new Item[equipSlots];
+  }
 
   public bool PickupItem(Item item)
   {
@@ -26,11 +30,25 @@ public class PlayerInventory : MonoBehaviour
 
   public bool EquipItem(int inventoryIndex, int equipIndex)
   {
-    if ((int) inventory[inventoryIndex].type == equipIndex)
+    //Check if the index is out of bounds
+    if(inventoryIndex >= inventory.Count)
+    {
+      return false;
+    }
+
+    if ((int)inventory[inventoryIndex].type == equipIndex)
     {
       Item swappedItem = equipment[equipIndex];
       equipment[equipIndex] = inventory[inventoryIndex];
-      inventory[inventoryIndex] = swappedItem;
+      if (swappedItem != null)
+      {
+        inventory[inventoryIndex] = swappedItem;
+      }
+      else
+      {
+        inventory.RemoveAt(inventoryIndex);
+      }
+
       return true;
     }
     else
@@ -39,13 +57,16 @@ public class PlayerInventory : MonoBehaviour
     }
   }
 
-  public void DisplayInventory()
+  public bool DeleteItem(int inventoryIndex)
   {
-    Debug.Log("================================");
-    foreach(Item item in inventory)
+    try
     {
-      Debug.Log(item.type);
+      inventory.RemoveAt(inventoryIndex);
+      return true;
     }
-    Debug.Log("==================================");
+    catch
+    {
+      return false;
+    }
   }
 }
