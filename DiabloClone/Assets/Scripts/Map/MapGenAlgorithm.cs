@@ -11,6 +11,12 @@ public class MapGenAlgorithm : MonoBehaviour
   [SerializeField]
   int mapHeight;
 
+  //Map Gen Variables
+  [SerializeField]
+  int rightWeight;
+  [SerializeField]
+  int passthroughs;
+
   //Tilemap Reference
   [SerializeField]
   Tilemap tileMap;
@@ -32,17 +38,16 @@ public class MapGenAlgorithm : MonoBehaviour
   private void Start()
   {
     //Fill with Floor tiles
-    for(int i = 0; i < mapWidth; i++)
+    for (int i = 0; i < mapWidth; i++)
     {
-      for(int j = 0; j < mapHeight; j++)
+      for (int j = 0; j < mapHeight; j++)
       {
-        Debug.Log("Generating floor at: (" + i + ", " + j + ")");
-        tileMap.SetTile(new Vector3Int(i, j, 0), floorTile);
+        tileMap.SetTile(new Vector3Int(i, j, 0), wallTile);
       }
     }
 
     //Set lastPosition to starting position
-    lastPosition = new Vector3Int(Random.Range(1,mapHeight), 1, 0);
+    lastPosition = new Vector3Int(1, Random.Range(1, mapHeight - 1), 0);
     startPosition = lastPosition;
 
     //Start generating tiles
@@ -51,17 +56,48 @@ public class MapGenAlgorithm : MonoBehaviour
 
   IEnumerator GenerateTile()
   {
-
-    yield return new WaitForSecondsRealtime(tileGenTime);
+    for (int i = 0; i < passthroughs; i++)
+    {
+      while (lastPosition.x < mapWidth - 1)
+      {
+        Debug.Log("Generating Tile at: " + lastPosition);
+        tileMap.SetTile(lastPosition, floorTile);
+        lastPosition = MoveTile(lastPosition);
+        yield return new WaitForSecondsRealtime(tileGenTime);
+      }
+      lastPosition = startPosition;
+      if (!(i + 1 >= passthroughs))
+      {
+        Debug.Log("Starting Passthrough: " + (i + 2));
+      }
+    }
+    Debug.Log("Dungeon Generation Finished!");
   }
 
   Vector3Int MoveTile(Vector3Int lastPosition)
   {
     int random = Random.Range(0, 10);
-    //if(random > )
-    //{
-
-    //}
+    if (random > rightWeight)
+    {
+      lastPosition.x += 1;
+    }
+    else
+    {
+      if (Random.Range(1, 3) > 1)
+      {
+        if (!(lastPosition.y + 1 >= mapHeight - 1))
+        {
+          lastPosition.y += 1;
+        }
+      }
+      else
+      {
+        if (!(lastPosition.y - 1 <= 0))
+        {
+          lastPosition.y -= 1;
+        }
+      }
+    }
     return lastPosition;
   }
 }

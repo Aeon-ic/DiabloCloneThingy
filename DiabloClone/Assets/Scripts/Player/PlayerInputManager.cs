@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -41,13 +42,9 @@ public class PlayerInputManager : MonoBehaviour
       GameObject.Find("Player").GetComponent<PlayerInventory>().PickupItem(new Item(4, new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f))));
     }
 
-    if (Input.GetKeyDown(KeyCode.Backslash))
+    if (Input.GetKeyDown(KeyCode.Space))
     {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().EquipItem(0, 3);
-    }
-    if (Input.GetKeyDown(KeyCode.RightBracket))
-    {
-      GameObject.Find("Player").GetComponent<PlayerInventory>().DeleteItem(0);
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
   }
 }
