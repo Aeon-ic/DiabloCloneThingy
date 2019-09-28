@@ -25,27 +25,27 @@ public class Item
     {
       case 0:
         type = ItemType.Head;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.3_38.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.3_38");
         break;
       case 1:
         type = ItemType.Torso;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.6_94.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.6_94");
         break;
       case 2:
         type = ItemType.Boots;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.1_95.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.1_95");
         break;
       case 3:
         type = ItemType.RightHand;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.4_76.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.4_76");
         break;
       case 4:
         type = ItemType.LeftHand;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.1_88.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.1_88");
         break;
       default:
         type = ItemType.Head;
-        icon = Resources.Load<Sprite>("Assets/Resources/Icons/Icon.3_38.png");
+        icon = Resources.Load<Sprite>("Icons/Icon.3_38");
         break;
     }
 

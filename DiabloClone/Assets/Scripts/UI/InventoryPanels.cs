@@ -39,7 +39,7 @@ public class InventoryPanels : MonoBehaviour
     }
 
     //Get blankSprite asset for when inventory or equipment slot is empty
-    blankSprite = Resources.Load<Sprite>("Assets/Resources/Icons/Icon Empty.png");
+    blankSprite = Resources.Load<Sprite>("Icons/Icon Empty");
 
     //Get UI Audio source
     uiAudio = this.gameObject.GetComponent<AudioSource>();
