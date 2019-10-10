@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2098c8688f4781848b543ea70dc023cc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - room: {instanceID: 0}
+  - endPrefab: {fileID: 1050330416550771959, guid: 79ecc511f83dafa49948718ab81774e6,
+      type: 3}
+  - hallwayPrefab: {fileID: 7238121431695067204, guid: bafe707241b6f8a41b4556b66517bda1,
+      type: 3}
+  - cornerPrefab: {fileID: 8565314003898075325, guid: 0d0cc8f791bf2cd4da2b24f95ef4c901,
+      type: 3}
+  - sidePrefab: {fileID: 6290888561998030429, guid: b42225dc2cf7feb489ecd63789e539b4,
+      type: 3}
+  - middlePrefab: {fileID: 4771672291134308532, guid: 1a8b1bd98a7a7294c91b5c2e3f03bc5d,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

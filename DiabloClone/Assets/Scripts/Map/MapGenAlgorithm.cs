@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -19,13 +20,13 @@ public class MapGenAlgorithm : MonoBehaviour
 
   //Tilemap Reference
   [SerializeField]
-  Tilemap tileMap;
+  public Tilemap tileMap;
 
   //Tile Objects
   [SerializeField]
-  TileBase floorTile;
+  public TileBase floorTile;
   [SerializeField]
-  TileBase wallTile;
+  public TileBase wallTile;
 
   //Rendering Map over time stuff
   [SerializeField]
@@ -33,6 +34,9 @@ public class MapGenAlgorithm : MonoBehaviour
   Vector3Int lastPosition;
   Vector3Int startPosition;
   Vector3Int endPosition;
+
+  //Delegates
+  public event Action OnDungeonGen = delegate { };
 
 
   private void Start()
@@ -47,7 +51,7 @@ public class MapGenAlgorithm : MonoBehaviour
     }
 
     //Set lastPosition to starting position
-    lastPosition = new Vector3Int(1, Random.Range(1, mapHeight - 1), 0);
+    lastPosition = new Vector3Int(1, UnityEngine.Random.Range(1, mapHeight - 1), 0);
     startPosition = lastPosition;
 
     //Start generating tiles
@@ -70,15 +74,15 @@ public class MapGenAlgorithm : MonoBehaviour
       }
 
       //For each passthrough after the first
-      if(i > 0)
+      if (i > 0)
       {
         //Check how many tiles this passthrough ended from the original pass
         int difference = lastPosition.y - endPosition.y;
         //Loop for the difference
-        for(int j = 0; j < Mathf.Abs(difference); j++)
+        for (int j = 0; j < Mathf.Abs(difference); j++)
         {
           //Check which direction was the end was in
-          if(difference > 0)
+          if (difference > 0)
           {
             //Set every tile in between this passthrough end and the end position to floor
             Vector3Int endVerifyPosition = new Vector3Int(mapWidth - 2, lastPosition.y + (j + 1) * -1, 0);
@@ -112,12 +116,13 @@ public class MapGenAlgorithm : MonoBehaviour
       }
     }
     Debug.Log("Dungeon Generation Finished!");
+    OnDungeonGen();
   }
 
   Vector3Int MoveTile(Vector3Int lastPosition)
   {
     //Generate a random number to compare against
-    int random = Random.Range(0, 10);
+    int random = UnityEngine.Random.Range(0, 10);
     //Check if it should move right
     if (random <= rightWeight)
     {
@@ -127,7 +132,7 @@ public class MapGenAlgorithm : MonoBehaviour
     else
     {
       //Generate a 50% chance and move up or down
-      if (Random.Range(1, 3) > 1)
+      if (UnityEngine.Random.Range(1, 3) > 1)
       {
         //Check if the vertical position is going out of the map
         if (!(lastPosition.y + 1 >= mapHeight - 1))
@@ -142,7 +147,7 @@ public class MapGenAlgorithm : MonoBehaviour
         if (!(lastPosition.y - 1 <= 0))
         {
           //If not, go down
-          lastPosition.y -= 1; 
+          lastPosition.y -= 1;
         }
       }
     }
