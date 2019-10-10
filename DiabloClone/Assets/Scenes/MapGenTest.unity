@@ -434,6 +434,8 @@ GameObject:
   - component: {fileID: 1825501356}
   - component: {fileID: 1825501358}
   - component: {fileID: 1825501359}
+  - component: {fileID: 1825501360}
+  - component: {fileID: 1825501361}
   m_Layer: 0
   m_Name: DungeonContainer
   m_TagString: Untagged
@@ -488,7 +490,7 @@ MonoBehaviour:
   tileMap: {fileID: 1194307989}
   floorTile: {fileID: 11400000, guid: f05773c7e30029b47b6161af26197bcb, type: 2}
   wallTile: {fileID: 11400000, guid: b2d78b6bc431b0347ba113362fdc8515, type: 2}
-  tileGenTime: 0.00001
+  tileGenTime: 0.01
 --- !u!114 &1825501359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +507,43 @@ MonoBehaviour:
   tilePrefab: {fileID: 5829553584414090317, guid: f03d4f1f6a18a2c489aa9b13df12e046,
     type: 3}
   tileParent: {fileID: 2063293369}
+--- !u!114 &1825501360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825501355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1907a94101905914bb8769fb99202fee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endRoomPrefabs:
+  - {fileID: 4562135364338354577, guid: 11f4fe1c99b4cb84387cd1637aade40c, type: 3}
+  hallwayPrefabs:
+  - {fileID: 5657657536542585353, guid: 2aaec759c2793a24ba80a9517292b4ce, type: 3}
+  cornerRoomPrefabs:
+  - {fileID: 8756687128039852622, guid: 0a3f1ee755db2184d9c6a43c473d5f8f, type: 3}
+  sideRoomPrefabs:
+  - {fileID: 9015418385288986324, guid: 8395b68b7f638444cb3411174c6654b2, type: 3}
+  middleRoomPrefabs:
+  - {fileID: 6125820902567315038, guid: 90321d1a69a781c48a4dbb26a0811298, type: 3}
+  hallwayDoor: {fileID: 3232002993912093582, guid: 521cb13f10e32eb4db2a79767e2da614,
+    type: 3}
+--- !u!114 &1825501361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825501355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3c5066fbc771c45b93b4cbb5398926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doors: []
 --- !u!1 &2063293369
 GameObject:
   m_ObjectHideFlags: 0

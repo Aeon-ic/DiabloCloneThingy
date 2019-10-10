@@ -46,6 +46,7 @@ public class GenerateTileInfo : MonoBehaviour
         if (tileMap.GetTile(currentTile) == floorTile)
         {
           tileInfoList.Add((Instantiate(tilePrefab, tileMap.GetCellCenterWorld(currentTile), Quaternion.identity, tileParent.transform)).GetComponent<TileInfo>());
+          tileInfoList[tileInfoList.Count - 1].tileMapPosition = new Vector3Int(i, j, 0);
         }
       }
     }
@@ -53,6 +54,27 @@ public class GenerateTileInfo : MonoBehaviour
 
   void SetTileInfo()
   {
+    //Loop through and assign adjacent rooms to the other one's list
+    foreach (TileInfo currentTile in tileInfoList)
+    {
+      foreach (TileInfo compareTile in tileInfoList)
+      {
+        if (currentTile != compareTile)
+        {
+          if (Math.Abs(compareTile.tileMapPosition.x - currentTile.tileMapPosition.x) == 1 && 
+            Math.Abs(compareTile.tileMapPosition.y - currentTile.tileMapPosition.y) == 0)
+          {
+            currentTile.borderingTiles.Add(compareTile);
+          }
+          if (Math.Abs(compareTile.tileMapPosition.y - currentTile.tileMapPosition.y) == 1 &&
+            Math.Abs(compareTile.tileMapPosition.x - currentTile.tileMapPosition.x) == 0)
+          {
+            currentTile.borderingTiles.Add(compareTile);
+          }
+        }
+      }
+    }
+
     //Loop and assign bordering tiles amounts
     foreach (TileInfo currentTile in tileInfoList)
     {
