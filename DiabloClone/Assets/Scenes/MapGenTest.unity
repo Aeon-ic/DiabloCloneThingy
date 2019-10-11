@@ -520,16 +520,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endRoomPrefabs:
-  - {fileID: 4562135364338354577, guid: 11f4fe1c99b4cb84387cd1637aade40c, type: 3}
+  - {fileID: 1050330416550771959, guid: 79ecc511f83dafa49948718ab81774e6, type: 3}
   hallwayPrefabs:
-  - {fileID: 5657657536542585353, guid: 2aaec759c2793a24ba80a9517292b4ce, type: 3}
+  - {fileID: 7238121431695067204, guid: bafe707241b6f8a41b4556b66517bda1, type: 3}
   cornerRoomPrefabs:
-  - {fileID: 8756687128039852622, guid: 0a3f1ee755db2184d9c6a43c473d5f8f, type: 3}
+  - {fileID: 8565314003898075325, guid: 0d0cc8f791bf2cd4da2b24f95ef4c901, type: 3}
   sideRoomPrefabs:
-  - {fileID: 9015418385288986324, guid: 8395b68b7f638444cb3411174c6654b2, type: 3}
+  - {fileID: 6290888561998030429, guid: b42225dc2cf7feb489ecd63789e539b4, type: 3}
   middleRoomPrefabs:
-  - {fileID: 6125820902567315038, guid: 90321d1a69a781c48a4dbb26a0811298, type: 3}
-  hallwayDoor: {fileID: 3232002993912093582, guid: 521cb13f10e32eb4db2a79767e2da614,
+  - {fileID: 4771672291134308532, guid: 1a8b1bd98a7a7294c91b5c2e3f03bc5d, type: 3}
+  hallwayDoor: {fileID: 5255417052699223948, guid: 09d24d2bd5dd61c4f94316f15cab1438,
     type: 3}
 --- !u!114 &1825501361
 MonoBehaviour:
