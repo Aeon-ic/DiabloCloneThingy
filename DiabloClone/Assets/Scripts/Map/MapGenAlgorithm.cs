@@ -38,9 +38,36 @@ public class MapGenAlgorithm : MonoBehaviour
   //Delegates
   public event Action OnDungeonGen = delegate { };
 
+  //Temp
+  bool dunGenFinished = false;
+  public GameObject startPrefab;
+  public GameObject endPrefab;
+  GameObject startObj;
+  GameObject endObj;
+  public GenerateTileInfo tileGen;
 
-  private void Start()
+  private void Awake()
   {
+    tileGen = this.gameObject.GetComponent<GenerateTileInfo>();
+  }
+
+  public void _GenDunDetails()
+  {
+    if (dunGenFinished)
+    {
+      OnDungeonGen();
+    }
+  }
+
+  public void _StartDunGen()
+  {
+    //Temp
+    tileMap.gameObject.GetComponent<TilemapRenderer>().enabled = true;
+    tileGen.ClearOldGen();
+    DoorGenManager.instance.DestroyDoors();
+    Destroy(startObj);
+    Destroy(endObj);
+
     //Fill with Floor tiles
     for (int i = 0; i < mapWidth; i++)
     {
@@ -53,6 +80,7 @@ public class MapGenAlgorithm : MonoBehaviour
     //Set lastPosition to starting position
     lastPosition = new Vector3Int(1, UnityEngine.Random.Range(1, mapHeight - 1), 0);
     startPosition = lastPosition;
+    startObj = Instantiate(startPrefab,tileMap.GetCellCenterWorld(startPosition), Quaternion.identity);
 
     //Start generating tiles
     StartCoroutine(GenerateTile());
@@ -103,7 +131,7 @@ public class MapGenAlgorithm : MonoBehaviour
       //If it's the first passthrough, set the end position to the last position
       else
       {
-        endPosition = lastPosition;
+        endPosition = new Vector3Int(lastPosition.x - 1, lastPosition.y, lastPosition.z);
       }
 
       //Set the tile to generate back to the start point
@@ -116,7 +144,9 @@ public class MapGenAlgorithm : MonoBehaviour
       }
     }
     Debug.Log("Dungeon Generation Finished!");
-    OnDungeonGen();
+    //OnDungeonGen();
+    endObj = Instantiate(endPrefab, tileMap.GetCellCenterWorld(endPosition), Quaternion.identity);
+    dunGenFinished = true;
   }
 
   Vector3Int MoveTile(Vector3Int lastPosition)

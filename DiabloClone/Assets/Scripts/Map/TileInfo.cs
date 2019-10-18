@@ -28,7 +28,7 @@ public class TileInfo : MonoBehaviour
     gameObject.transform.GetComponentInParent<GenerateTileInfo>().OnTileInfoFinish += GenerateTile;
   }
 
-  void GenerateTile()
+  public void GenerateTile()
   {
     //Create the room with a returned room from the TileLibrary
     room = Instantiate(TileLibrary.instance.GenerateRoom(tileType), gameObject.transform.position, Quaternion.identity, gameObject.transform);

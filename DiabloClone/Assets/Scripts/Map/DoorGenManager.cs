@@ -43,4 +43,18 @@ public class DoorGenManager : MonoBehaviour
       }
     }
   }
+
+  public void DestroyDoors()
+  {
+    if (doors.Count != 0)
+    {
+      for (int i = doors.Count -1; i >= 0; i--)
+      {
+        Destroy(doors[i].gameObject);
+        doors.RemoveAt(i);
+      }
+    }
+
+    doors.Clear();
+  }
 }
