@@ -6,6 +6,7 @@ public class PlayerInputManager : MonoBehaviour
 {
   public event Action OnEscapePress = delegate { };
   public event Action OnIPress = delegate { };
+  public event Action OnLeftMousePress = delegate { };
 
   // Update is called once per frame
   void Update()
@@ -45,6 +46,11 @@ public class PlayerInputManager : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space))
     {
       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    if (Input.GetMouseButton(0))
+    {
+      OnLeftMousePress();
     }
   }
 }
