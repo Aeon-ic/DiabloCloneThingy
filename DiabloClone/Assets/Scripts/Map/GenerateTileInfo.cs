@@ -14,9 +14,9 @@ public class GenerateTileInfo : MonoBehaviour
   private Tilemap tileMap;
   TileBase floorTile;
   [SerializeField]
-  GameObject tilePrefab;
+  GameObject tilePrefab = null;
   [SerializeField]
-  GameObject tileParent;
+  GameObject tileParent = null;
 
   //Delegates
   public event Action OnTileInfoFinish = delegate { };

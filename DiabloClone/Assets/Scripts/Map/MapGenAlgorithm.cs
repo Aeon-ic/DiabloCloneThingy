@@ -8,25 +8,25 @@ public class MapGenAlgorithm : MonoBehaviour
 {
   //Map Size
   [SerializeField]
-  int mapWidth;
+  int mapWidth = 20;
   [SerializeField]
-  int mapHeight;
+  int mapHeight = 10;
 
   //Map Gen Variables
   [SerializeField]
-  int rightWeight;
+  int rightWeight = 2;
   [SerializeField]
-  int passthroughs;
+  int passthroughs = 2;
 
   //Tilemap Reference
   [SerializeField]
-  public Tilemap tileMap;
+  public Tilemap tileMap = null;
 
   //Tile Objects
   [SerializeField]
-  public TileBase floorTile;
+  public TileBase floorTile = null;
   [SerializeField]
-  public TileBase wallTile;
+  public TileBase wallTile = null;
 
   //Rendering Map over time stuff
   [SerializeField]
