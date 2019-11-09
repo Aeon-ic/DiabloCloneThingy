@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -22,19 +23,39 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     SetPlayerNickName();
     roomOptions.MaxPlayers = maxPlayers;
     PhotonNetwork.GameVersion = gameVersion;
+
+    if (!PhotonNetwork.IsConnected)
+    {
+      PhotonNetwork.ConnectUsingSettings();
+    }
   }
 
   public void Connect()
   {
-    if(PhotonNetwork.IsConnected)
+    PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+  }
+
+  public override void OnRoomListUpdate(List<RoomInfo> roomList)
+  {
+    Dropdown dropRoomList = GameObject.Find("RoomsDropDown").GetComponentInChildren<Dropdown>();
+    dropRoomList.ClearOptions();
+    List<Dropdown.OptionData> roomData = new List<Dropdown.OptionData>();
+
+    if (roomList.Count == 0)
     {
-      Debug.Log("Already connected. Joining random room.");
-      PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+      roomData.Add(new Dropdown.OptionData("No Rooms"));
     }
     else
     {
-      PhotonNetwork.ConnectUsingSettings();
+      foreach (RoomInfo roomInfo in roomList)
+      {
+        roomData.Add(new Dropdown.OptionData(roomInfo.Name));
+      }
     }
+
+    dropRoomList.AddOptions(roomData);
+
+    dropRoomList.value = 0;
   }
 
   public void SetPlayerNickName(string name = "Aeon")
@@ -51,8 +72,12 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnConnectedToMaster()
   {
     Debug.Log("<color=green>Connected to server</color>");
-    
-    PhotonNetwork.JoinOrCreateRoom("Meep", roomOptions, null);
+
+    //PhotonNetwork.JoinOrCreateRoom("Meep", roomOptions, null);
+    if (!PhotonNetwork.InLobby)
+    {
+      PhotonNetwork.JoinLobby();
+    }
   }
 
   public override void OnDisconnected(DisconnectCause cause)
@@ -80,5 +105,6 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnJoinedRoom()
   {
     Debug.Log("<color=green>Connected to room.</color>");
+    PhotonNetwork.LoadLevel("MultiplayerTest");
   }
 }
