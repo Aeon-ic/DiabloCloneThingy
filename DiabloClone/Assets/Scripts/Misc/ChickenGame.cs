@@ -15,10 +15,4 @@ public class ChickenGame : MonoBehaviour
     playerRef.name = "Meep";
     GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().SetTarget();
   }
-
-  // Update is called once per frame
-  void Update()
-  {
-
-  }
 }

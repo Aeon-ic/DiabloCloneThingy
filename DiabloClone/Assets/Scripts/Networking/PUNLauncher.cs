@@ -91,7 +91,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     RoomOptions roomOptions = new RoomOptions
     {
       MaxPlayers = maxPlayers,
-      PlayerTtl = 60000,
+      PlayerTtl = 0,
       EmptyRoomTtl = 0
     };
     PhotonNetwork.CreateRoom(null, roomOptions);
