@@ -8,7 +8,7 @@ using Photon.Realtime;
 public class PUNLauncher : MonoBehaviourPunCallbacks
 {
   public string gameVersion = "1";
-  public byte maxPlayers = 3;
+  public byte maxPlayers = 4;
   public string nickName = "Aeon";
   public string roomName = "Test";
   public RoomOptions roomOptions = new RoomOptions
@@ -16,6 +16,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     PlayerTtl = 60000,
     EmptyRoomTtl = 0
   };
+  private List<RoomInfo> currRoomList = new List<RoomInfo>();
 
   // Start is called before the first frame update
   void Start()
@@ -32,12 +33,31 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public void Connect()
   {
-    PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+    if (roomOptions.MaxPlayers == 1)
+    {
+      //Check if the room exists in the current room list
+      foreach (RoomInfo roomInfo in currRoomList)
+      {
+        if (roomInfo.Name == roomName)
+        {
+          Debug.Log("Room already exists. Cannot play singleplayer in room.");
+          return;
+        }
+      }
+
+      //If it doesn't, create and join
+      PhotonNetwork.CreateRoom(roomName, roomOptions, null);
+    }
+    else
+    {
+      PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+    }
   }
 
   public override void OnRoomListUpdate(List<RoomInfo> roomList)
   {
-    Dropdown dropRoomList = GameObject.Find("RoomsDropDown").GetComponentInChildren<Dropdown>();
+    currRoomList = roomList;
+    Dropdown dropRoomList = this.gameObject.GetComponent<MainMenu>().roomListDropdown;
     dropRoomList.ClearOptions();
     List<Dropdown.OptionData> roomData = new List<Dropdown.OptionData>();
 
@@ -67,6 +87,12 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public void SetRoomName(string name = "Test")
   {
     roomName = name;
+  }
+
+  public void SetMaxPlayers(byte newMax)
+  {
+    roomOptions.MaxPlayers = newMax;
+    Debug.Log("Max Players now: " + newMax);
   }
 
   public override void OnConnectedToMaster()
@@ -105,6 +131,6 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnJoinedRoom()
   {
     Debug.Log("<color=green>Connected to room.</color>");
-    PhotonNetwork.LoadLevel("MultiplayerTest");
+    PhotonNetwork.LoadLevel("MultiplayerGame");
   }
 }

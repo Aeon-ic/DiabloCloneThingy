@@ -6,16 +6,26 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
   //Inspector variables
-  public GameObject singleplayerCanvas;
+  //public GameObject singleplayerCanvas;
   public GameObject multiplayerCanvas;
   public GameObject settingsCanvas;
   public InputField nickField;
   public InputField roomNameField;
+  public Toggle singleplayerToggle;
+  public Dropdown roomListDropdown;
 
-  public void _OnSingleplayerClick()
+  //References
+  private PUNLauncher launcher;
+
+  private void Awake()
   {
-    singleplayerCanvas.SetActive(true);
+    launcher = GameObject.Find("Server").GetComponent<PUNLauncher>();
   }
+
+  //public void _OnSingleplayerClick()
+  //{
+  //  singleplayerCanvas.SetActive(true);
+  //}
 
   public void _OnMultiplayerClick()
   {
@@ -34,11 +44,28 @@ public class MainMenu : MonoBehaviour
 
   public void _SetNickName()
   {
-    GameObject.Find("Server").GetComponent<PUNLauncher>().SetPlayerNickName(nickField.text); 
+    launcher.SetPlayerNickName(nickField.text); 
   }
 
   public void _SetRoomName()
   {
-    GameObject.Find("Server").GetComponent<PUNLauncher>().SetRoomName(roomNameField.text);
+    launcher.SetRoomName(roomNameField.text);
+  }
+
+  public void _SinglePlayerToggle()
+  {
+    if (singleplayerToggle.isOn)
+    {
+      launcher.SetMaxPlayers(1);
+    }
+    else
+    {
+      launcher.SetMaxPlayers(launcher.maxPlayers);
+    }
+  }
+
+  public void _OnMultiplayerBack()
+  {
+    multiplayerCanvas.SetActive(false);
   }
 }

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: c7f343da0cf6b28488ae91d4dc15546b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MapGenTest.unity
     guid: 8adf1a6c555720c4787cb5ed3a7dc66b
   - enabled: 1
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerTest.unity
     guid: c4349589a3387854cba789008d7a72e8
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerGame.unity
+    guid: 8f68ff0e07fdd4943a2f12599c7c78bb
   m_configObjects: {}

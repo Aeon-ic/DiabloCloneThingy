@@ -37,20 +37,20 @@ public class GenerateTileInfo : MonoBehaviour
     tileMap.gameObject.GetComponent<TilemapRenderer>().enabled = false;
   }
 
-  public void ClearOldGen()
-  {
-    if (tileInfoList.Count != 0)
-    {
-      for (int i = tileInfoList.Count - 1; i >= 0; i--)
-      {
-        OnTileInfoFinish -= tileInfoList[i].GenerateTile;
-        Destroy(tileInfoList[i].gameObject);
-        tileInfoList.RemoveAt(i);
-      }
-    }
+  //public void ClearOldGen()
+  //{
+  //  if (tileInfoList.Count != 0)
+  //  {
+  //    for (int i = tileInfoList.Count - 1; i >= 0; i--)
+  //    {
+  //      OnTileInfoFinish -= tileInfoList[i].GenerateTile;
+  //      Destroy(tileInfoList[i].gameObject);
+  //      tileInfoList.RemoveAt(i);
+  //    }
+  //  }
 
-    tileInfoList.Clear();
-  }
+  //  tileInfoList.Clear();
+  //}
 
   void GenerateTileInfoObjects()
   {
