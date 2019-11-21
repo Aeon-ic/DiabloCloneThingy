@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 public class GenerateTileInfo : MonoBehaviour
 {
   //TileInfo List
-  List<TileInfo> tileInfoList = new List<TileInfo>();
+  [HideInInspector]
+  public List<TileInfo> tileInfoList = new List<TileInfo>();
 
   //References
   public MapGenAlgorithm mapGen;
@@ -31,6 +32,7 @@ public class GenerateTileInfo : MonoBehaviour
 
   void StartDungeonInfoGen()
   {
+    Debug.Log("Starting Info Gen");
     GenerateTileInfoObjects();
     SetTileInfo();
     OnTileInfoFinish();

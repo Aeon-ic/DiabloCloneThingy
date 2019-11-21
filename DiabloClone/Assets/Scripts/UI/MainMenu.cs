@@ -13,6 +13,10 @@ public class MainMenu : MonoBehaviour
   public InputField roomNameField;
   public Toggle singleplayerToggle;
   public Dropdown roomListDropdown;
+  public Text debugText;
+
+  //Private Variables
+  private List<string> debugTextLines = new List<string>();
 
   //References
   private PUNLauncher launcher;
@@ -20,6 +24,7 @@ public class MainMenu : MonoBehaviour
   private void Awake()
   {
     launcher = GameObject.Find("Server").GetComponent<PUNLauncher>();
+    launcher.menu = this;
   }
 
   //public void _OnSingleplayerClick()
@@ -67,5 +72,34 @@ public class MainMenu : MonoBehaviour
   public void _OnMultiplayerBack()
   {
     multiplayerCanvas.SetActive(false);
+  }
+
+  public void ManageDebugText(string newLine)
+  {
+    //Add Line
+    debugTextLines.Add(newLine);
+
+    //Check if it is below bottom of textbox
+    if(debugTextLines.Count > 2)
+    {
+      //Trim top
+      debugTextLines.RemoveAt(0);
+    }
+
+    //Display text
+    string concatDebugText = "";
+    foreach(string line in debugTextLines)
+    {
+      if (concatDebugText == "")
+      {
+        concatDebugText = line;
+      }
+      else
+      {
+        concatDebugText += "\n" + line;
+      }
+    }
+
+    debugText.text = concatDebugText;
   }
 }

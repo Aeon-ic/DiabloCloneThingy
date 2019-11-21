@@ -17,11 +17,12 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     EmptyRoomTtl = 0
   };
   private List<RoomInfo> currRoomList = new List<RoomInfo>();
+  [HideInInspector]
+  public MainMenu menu;
 
   // Start is called before the first frame update
   void Start()
   {
-    SetPlayerNickName();
     roomOptions.MaxPlayers = maxPlayers;
     PhotonNetwork.GameVersion = gameVersion;
 
@@ -40,7 +41,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
       {
         if (roomInfo.Name == roomName)
         {
-          Debug.Log("Room already exists. Cannot play singleplayer in room.");
+          menu.ManageDebugText("Room already exists. Cannot play singleplayer in room.");
           return;
         }
       }
@@ -82,22 +83,24 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   {
     nickName = name;
     PhotonNetwork.NickName = nickName;
+    menu.ManageDebugText($"Name changed to: {nickName}");
   }
 
   public void SetRoomName(string name = "Test")
   {
     roomName = name;
+    menu.ManageDebugText($"Room Name changed to: {roomName}");
   }
 
   public void SetMaxPlayers(byte newMax)
   {
     roomOptions.MaxPlayers = newMax;
-    Debug.Log("Max Players now: " + newMax);
+    menu.ManageDebugText("Max Players now: " + newMax);
   }
 
   public override void OnConnectedToMaster()
   {
-    Debug.Log("<color=green>Connected to server</color>");
+    menu.ManageDebugText("<color=green>Connected to server</color>");
 
     //PhotonNetwork.JoinOrCreateRoom("Meep", roomOptions, null);
     if (!PhotonNetwork.InLobby)
@@ -108,12 +111,12 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public override void OnDisconnected(DisconnectCause cause)
   {
-    Debug.Log("<color=red>Disconnected from server: </color>" + cause.ToString());
+    menu.ManageDebugText("<color=red>Disconnected from server: </color>" + cause.ToString());
   }
 
   public override void OnJoinRandomFailed(short returnCode, string message)
   {
-    Debug.Log("<color=red>Failed to join random room.</color>" + "Creating new room." + message);
+    menu.ManageDebugText("<color=red>Failed to join random room.</color>" + "Creating new room." + message);
     RoomOptions roomOptions = new RoomOptions
     {
       MaxPlayers = maxPlayers,
@@ -125,12 +128,12 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public override void OnJoinRoomFailed(short returnCode, string message)
   {
-    Debug.Log("<color=red>Failed to join random room.</color>" + message);
+    menu.ManageDebugText("<color=red>Failed to join random room.</color>" + message);
   }
 
   public override void OnJoinedRoom()
   {
-    Debug.Log("<color=green>Connected to room.</color>");
+    menu.ManageDebugText("<color=green>Connected to room.</color>");
     PhotonNetwork.LoadLevel("MultiplayerGame");
   }
 }

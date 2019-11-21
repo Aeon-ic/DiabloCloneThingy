@@ -41,6 +41,8 @@ public class MapGenAlgorithm : MonoBehaviour
   //Temp
   //bool dunGenFinished = false;
   public GameObject startPrefab;
+  [HideInInspector]
+  public GameObject startObject;
   public GameObject endPrefab;
   //GameObject startObj;
   //GameObject endObj;
@@ -49,7 +51,6 @@ public class MapGenAlgorithm : MonoBehaviour
   private void Awake()
   {
     tileGen = this.gameObject.GetComponent<GenerateTileInfo>();
-    StartDunGen();
   }
 
   public void StartDunGen()
@@ -74,13 +75,13 @@ public class MapGenAlgorithm : MonoBehaviour
     lastPosition = new Vector3Int(1, UnityEngine.Random.Range(1, mapHeight - 1), 0);
     startPosition = lastPosition;
     //startObj = 
-    Instantiate(startPrefab, tileMap.GetCellCenterWorld(startPosition), Quaternion.identity);
+    startObject = Instantiate(startPrefab, tileMap.GetCellCenterWorld(startPosition), Quaternion.identity);
 
     //Start generating tiles
-    StartCoroutine(GenerateTile());
+    StartCoroutine(GenerateTiles());
   }
 
-  IEnumerator GenerateTile()
+  IEnumerator GenerateTiles()
   {
     //Set up a loop and loop until the program has generated as many passthroughs as required
     for (int i = 0; i < passthroughs; i++)
@@ -144,6 +145,7 @@ public class MapGenAlgorithm : MonoBehaviour
 
     Debug.Log("Dungeon Generation Finished!");
     OnDungeonGen();
+    Debug.Log("OnDungeonGen called");
   }
 
   Vector3Int MoveTile(Vector3Int lastPosition)
