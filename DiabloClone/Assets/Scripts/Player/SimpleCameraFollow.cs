@@ -10,7 +10,7 @@ public class SimpleCameraFollow : MonoBehaviour
   // Start is called before the first frame update
   public void SetTarget()
   {
-    //cameraOffset = followObject.position - this.gameObject.transform.position;
+    cameraOffset = followObject.position + this.gameObject.transform.position;
   }
 
   // Update is called once per frame

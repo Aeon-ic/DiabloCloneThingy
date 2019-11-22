@@ -134,6 +134,6 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnJoinedRoom()
   {
     menu.ManageDebugText("<color=green>Connected to room.</color>");
-    PhotonNetwork.LoadLevel("MultiplayerGame");
+    PhotonNetwork.LoadLevel("FinalProjectV1");
   }
 }
