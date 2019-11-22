@@ -30,6 +30,8 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     {
       PhotonNetwork.ConnectUsingSettings();
     }
+
+    DontDestroyOnLoad(this.gameObject);
   }
 
   public void Connect()
@@ -135,5 +137,25 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   {
     menu.ManageDebugText("<color=green>Connected to room.</color>");
     PhotonNetwork.LoadLevel("FinalProjectV1");
+
+    StartCoroutine(LevelLoadCheck());
+  }
+
+  IEnumerator LevelLoadCheck()
+  {
+    while (PhotonNetwork.LevelLoadingProgress != 1)
+    {
+      //Do Nothing
+      Debug.Log("Loading");
+      yield return new WaitForEndOfFrame();
+    }
+
+    //After Loaded
+    OnLevelLoad();
+  }
+
+  void OnLevelLoad()
+  {
+    
   }
 }

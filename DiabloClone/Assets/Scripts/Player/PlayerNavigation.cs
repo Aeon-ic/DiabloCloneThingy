@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerNavigation : MonoBehaviour
+public class PlayerNavigation : MonoBehaviourPunCallbacks
 {
   //References
   private NavMeshAgent playerAgent;
@@ -11,10 +13,13 @@ public class PlayerNavigation : MonoBehaviour
 
   private void Awake()
   {
-    playerAgent = this.gameObject.GetComponent<NavMeshAgent>();
-    playerPath = playerAgent.path;
-    GameObject.Find("EventSystem").GetComponent<PlayerInputManager>().OnLeftMousePress += HandleMouse;
-    Debug.Log("Nav started");
+    if(photonView.IsMine)
+    {
+      playerAgent = this.gameObject.GetComponent<NavMeshAgent>();
+      playerPath = playerAgent.path;
+      GameObject.Find("EventSystem").GetComponent<PlayerInputManager>().OnLeftMousePress += HandleMouse;
+      Debug.Log("Nav started");
+    }
   }
 
   public void HandleMouse()
