@@ -15,6 +15,6 @@ public class FinalProjectV1GameMaster : MonoBehaviourPunCallbacks
     GameObject playerRef = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
     GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().followObject = playerRef.transform;
     playerRef.name = "Meep";
-    GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().SetTarget();
+    //GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().SetTarget();
   }
 }

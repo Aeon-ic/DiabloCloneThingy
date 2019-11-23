@@ -37,12 +37,13 @@ public class MapGenAlgorithm : MonoBehaviour
 
   //Delegates
   public event Action OnDungeonGen = delegate { };
+  public event Action OnDungeonFinished = delegate { };
 
   //Temp
   //bool dunGenFinished = false;
   public GameObject startPrefab;
   [HideInInspector]
-  public GameObject startObject;
+  public Vector3 spawnPositon;
   public GameObject endPrefab;
   //GameObject startObj;
   //GameObject endObj;
@@ -75,7 +76,7 @@ public class MapGenAlgorithm : MonoBehaviour
     lastPosition = new Vector3Int(1, UnityEngine.Random.Range(1, mapHeight - 1), 0);
     startPosition = lastPosition;
     //startObj = 
-    startObject = Instantiate(startPrefab, tileMap.GetCellCenterWorld(startPosition), Quaternion.identity);
+    spawnPositon = tileMap.GetCellCenterWorld(startPosition);
 
     //Start generating tiles
     StartCoroutine(GenerateTiles());
@@ -141,11 +142,12 @@ public class MapGenAlgorithm : MonoBehaviour
 
     //Spawn object in last room to show where it ended
     //endObj = 
-    Instantiate(endPrefab, tileMap.GetCellCenterWorld(endPosition), Quaternion.identity);
+    //Instantiate(endPrefab, tileMap.GetCellCenterWorld(endPosition), Quaternion.identity);
 
     Debug.Log("Dungeon Generation Finished!");
     OnDungeonGen();
-    Debug.Log("OnDungeonGen called");
+    Debug.Log("OnDungeonGen Finished");
+    OnDungeonFinished();
   }
 
   Vector3Int MoveTile(Vector3Int lastPosition)

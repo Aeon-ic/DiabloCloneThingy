@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class DoorGenManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class DoorGenManager : MonoBehaviour
           Mathf.Abs(door.transform.position.z - newDoor.transform.position.z) < doorCheckDistance)
         {
           Debug.Log("Deleted dupped door at: " + newDoor.transform.position);
-          Destroy(newDoor);
+          PhotonNetwork.Destroy(newDoor);
         }
       }
     }
@@ -50,7 +51,7 @@ public class DoorGenManager : MonoBehaviour
     {
       for (int i = doors.Count -1; i >= 0; i--)
       {
-        Destroy(doors[i].gameObject);
+        PhotonNetwork.Destroy(doors[i].gameObject);
         doors.RemoveAt(i);
       }
     }

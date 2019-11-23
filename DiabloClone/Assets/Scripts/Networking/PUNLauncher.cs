@@ -60,7 +60,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnRoomListUpdate(List<RoomInfo> roomList)
   {
     currRoomList = roomList;
-    Dropdown dropRoomList = this.gameObject.GetComponent<MainMenu>().roomListDropdown;
+    Dropdown dropRoomList = menu.roomListDropdown;
     dropRoomList.ClearOptions();
     List<Dropdown.OptionData> roomData = new List<Dropdown.OptionData>();
 
@@ -136,7 +136,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public override void OnJoinedRoom()
   {
     menu.ManageDebugText("<color=green>Connected to room.</color>");
-    PhotonNetwork.LoadLevel("FinalProjectV1");
+    PhotonNetwork.LoadLevel("MultiplayerGame");
 
     StartCoroutine(LevelLoadCheck());
   }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Photon.Pun;
 
 public class GenerateTileInfo : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class GenerateTileInfo : MonoBehaviour
   TileBase floorTile;
   [SerializeField]
   GameObject tilePrefab = null;
-  [SerializeField]
-  GameObject tileParent = null;
+  //[SerializeField]
+  //GameObject tileParent = null;
 
   //Delegates
   public event Action OnTileInfoFinish = delegate { };
@@ -63,7 +64,7 @@ public class GenerateTileInfo : MonoBehaviour
         Vector3Int currentTile = new Vector3Int(i, j, 0);
         if (tileMap.GetTile(currentTile) == floorTile)
         {
-          tileInfoList.Add((Instantiate(tilePrefab, tileMap.GetCellCenterWorld(currentTile), Quaternion.identity, tileParent.transform)).GetComponent<TileInfo>());
+          tileInfoList.Add((PhotonNetwork.Instantiate(tilePrefab.name, tileMap.GetCellCenterWorld(currentTile), Quaternion.identity)).GetComponent<TileInfo>());
           tileInfoList[tileInfoList.Count - 1].tileMapPosition = new Vector3Int(i, j, 0);
         }
       }
