@@ -60,7 +60,7 @@ public class GameMasterV2 : MonoBehaviour
     {
       dungeonTile.transform.SetParent(dungeonParent.transform);
     }
-    mapGen.gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
+    //mapGen.gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
 
     //Spawn Player
     SpawnPlayer();
