@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 326868138}
   - component: {fileID: 326868137}
   m_Layer: 5
-  m_Name: Connect
+  m_Name: Join
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1174,6 +1174,7 @@ MonoBehaviour:
   singleplayerToggle: {fileID: 1949522778}
   roomListDropdown: {fileID: 1584520936}
   debugText: {fileID: 454307812}
+  joinButton: {fileID: 326868137}
 --- !u!1 &663728951
 GameObject:
   m_ObjectHideFlags: 0

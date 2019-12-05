@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -10,7 +11,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   public string gameVersion = "1";
   public byte maxPlayers = 4;
   public string nickName = "Aeon";
-  public string roomName = "Test";
+  public string roomName = "Bloop";
   public RoomOptions roomOptions = new RoomOptions
   {
     PlayerTtl = 60000,
@@ -19,10 +20,24 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   private List<RoomInfo> currRoomList = new List<RoomInfo>();
   [HideInInspector]
   public MainMenu menu;
+  private static PUNLauncher instance;
+  private UnityAction action;
 
   // Start is called before the first frame update
   void Start()
   {
+    //Singleton code
+    {
+      if (instance == null)
+      {
+        instance = this;
+      }
+      else
+      {
+        Destroy(this.gameObject);
+      }
+    }
+    //Setup Room options
     roomOptions.MaxPlayers = maxPlayers;
     PhotonNetwork.GameVersion = gameVersion;
 
@@ -30,6 +45,8 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     {
       PhotonNetwork.ConnectUsingSettings();
     }
+
+    action += Connect;
 
     DontDestroyOnLoad(this.gameObject);
   }
@@ -83,13 +100,21 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public void SetPlayerNickName(string name = "Aeon")
   {
+    if (name == "")
+    {
+      name = "Aeon";
+    }
     nickName = name;
     PhotonNetwork.NickName = nickName;
     menu.ManageDebugText($"Name changed to: {nickName}");
   }
 
-  public void SetRoomName(string name = "Test")
+  public void SetRoomName(string name = "Bloop")
   {
+    if (name == "")
+    {
+      name = "Bloop";
+    }
     roomName = name;
     menu.ManageDebugText($"Room Name changed to: {roomName}");
   }
@@ -143,10 +168,9 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   IEnumerator LevelLoadCheck()
   {
+    //Wait until level is loaded
     while (PhotonNetwork.LevelLoadingProgress != 1)
     {
-      //Do Nothing
-      Debug.Log("Loading");
       yield return new WaitForEndOfFrame();
     }
 
@@ -156,6 +180,33 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   void OnLevelLoad()
   {
-    
+    int level = SceneManagerHelper.ActiveSceneBuildIndex;
+    if (level == 0)
+    {
+      menu = GameObject.Find("Canvas").GetComponent<MainMenu>();
+      menu._OnMultiplayerClick();
+      menu.joinButton.onClick.RemoveAllListeners();
+      menu.joinButton.onClick.AddListener(action);
+    }
+    else if (level == 1)
+    {
+      GameObject.Find("EventSystem").GetComponent<PlayerInputManager>().OnEscapePress += Disconnect;
+    }
+  }
+
+  void Disconnect()
+  {
+    if (PhotonNetwork.IsMasterClient)
+    {
+      foreach (Player player in PhotonNetwork.PlayerListOthers)
+      {
+        PhotonView.print("Room was closed by host");
+        PhotonNetwork.CloseConnection(player);
+      }
+    }
+
+    PhotonNetwork.LeaveRoom();
+    PhotonNetwork.LoadLevel("MainMenu");
+    StartCoroutine(LevelLoadCheck());
   }
 }

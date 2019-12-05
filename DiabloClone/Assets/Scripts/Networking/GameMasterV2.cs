@@ -15,6 +15,7 @@ public class GameMasterV2 : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    Debug.Log(PhotonNetwork.IsMasterClient);
     //Check if Dungeon needs to be generated
     if (PhotonNetwork.IsMasterClient)
     {
@@ -30,12 +31,6 @@ public class GameMasterV2 : MonoBehaviour
     {
       StartCoroutine(WaitUntilDungeonGen());
     }
-
-    //Spawn in player
-    currPlayer = PhotonNetwork.Instantiate(playerPrefab.name, (Vector3)PhotonNetwork.CurrentRoom.CustomProperties["StartPosition"], Quaternion.identity);
-    GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().followObject = currPlayer.transform;
-    currPlayer.name = "Meep";
-    //GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().SetTarget();
   }
 
   void SetDungeonGenComplete()
@@ -54,6 +49,20 @@ public class GameMasterV2 : MonoBehaviour
       yield return new WaitForEndOfFrame();
     }
 
+    Debug.Log("Level Loaded");
+
     loadingCanvas.SetActive(false);
+
+    //Spawn Player
+    SpawnPlayer();
+  }
+
+  void SpawnPlayer()
+  {
+    //Spawn in player
+    currPlayer = PhotonNetwork.Instantiate(playerPrefab.name, (Vector3)PhotonNetwork.CurrentRoom.CustomProperties["StartPosition"], Quaternion.identity);
+    GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().followObject = currPlayer.transform;
+    currPlayer.name = "Meep";
+    //GameObject.Find("Main Camera").GetComponent<SimpleCameraFollow>().SetTarget();
   }
 }

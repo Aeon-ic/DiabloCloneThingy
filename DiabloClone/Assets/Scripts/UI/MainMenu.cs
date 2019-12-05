@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
   public Toggle singleplayerToggle;
   public Dropdown roomListDropdown;
   public Text debugText;
+  public Button joinButton;
 
   //Private Variables
   private List<string> debugTextLines = new List<string>();
@@ -78,9 +79,10 @@ public class MainMenu : MonoBehaviour
   {
     //Add Line
     debugTextLines.Add(newLine);
+    debugText.verticalOverflow = VerticalWrapMode.Truncate;
 
     //Check if it is below bottom of textbox
-    if(debugTextLines.Count > 2)
+    if (debugTextLines.Count > (debugText.GetPixelAdjustedRect().height / (debugText.fontSize + 2 * debugText.lineSpacing)))
     {
       //Trim top
       debugTextLines.RemoveAt(0);
