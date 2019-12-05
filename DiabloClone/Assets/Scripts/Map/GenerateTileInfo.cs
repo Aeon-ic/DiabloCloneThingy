@@ -8,7 +8,6 @@ using Photon.Pun;
 public class GenerateTileInfo : MonoBehaviour
 {
   //TileInfo List
-  [HideInInspector]
   public List<TileInfo> tileInfoList = new List<TileInfo>();
 
   //References

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.AI;
 
 public class GameMasterV2 : MonoBehaviour
 {
@@ -10,10 +11,11 @@ public class GameMasterV2 : MonoBehaviour
   private GameObject currPlayer;
   public GameObject loadingCanvas;
   private MapGenAlgorithm mapGen;
+  public GameObject dungeonParent;
   private ExitGames.Client.Photon.Hashtable roomProperties = new ExitGames.Client.Photon.Hashtable();
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
     Debug.Log(PhotonNetwork.IsMasterClient);
     //Check if Dungeon needs to be generated
@@ -36,7 +38,7 @@ public class GameMasterV2 : MonoBehaviour
   void SetDungeonGenComplete()
   {
     roomProperties["DungeonGenFinished"] = true;
-    roomProperties.Add("StartPosition", mapGen.spawnPositon);
+    roomProperties.Add("StartPosition", mapGen.spawnPositon + new Vector3(0,2,0));
     PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
   }
 
@@ -50,11 +52,20 @@ public class GameMasterV2 : MonoBehaviour
     }
 
     Debug.Log("Level Loaded");
+    Debug.Log("Building Nav Mesh");
 
-    loadingCanvas.SetActive(false);
+    //Build NavMesh
+    HashSet<GameObject> dungeonTiles = PhotonNetwork.FindGameObjectsWithComponent(typeof(PhotonView));
+    foreach (GameObject dungeonTile in dungeonTiles)
+    {
+      dungeonTile.transform.SetParent(dungeonParent.transform);
+    }
+    mapGen.gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
 
     //Spawn Player
     SpawnPlayer();
+
+    loadingCanvas.SetActive(false);
   }
 
   void SpawnPlayer()
