@@ -26,7 +26,7 @@ public class TileInfo : MonoBehaviour
 
   private void Awake()
   {
-    GameObject.Find("Dungeon").GetComponent<GenerateTileInfo>().OnTileInfoFinish += GenerateTile;
+    GameObject.Find("DungeonManager").GetComponent<GenerateTileInfo>().OnTileInfoFinish += GenerateTile;
   }
 
   public void GenerateTile()

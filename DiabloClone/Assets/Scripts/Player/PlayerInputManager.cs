@@ -7,6 +7,7 @@ public class PlayerInputManager : MonoBehaviour
   public event Action OnEscapePress = delegate { };
   public event Action OnIPress = delegate { };
   public event Action OnLeftMousePress = delegate { };
+  public event Action OnLeftMousePressRelease = delegate { };
 
   // Update is called once per frame
   void Update()
@@ -51,6 +52,10 @@ public class PlayerInputManager : MonoBehaviour
     if (Input.GetMouseButton(0))
     {
       OnLeftMousePress();
+    }
+    if(Input.GetMouseButtonUp(0))
+    {
+      OnLeftMousePressRelease();
     }
   }
 }

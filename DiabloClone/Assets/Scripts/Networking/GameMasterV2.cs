@@ -23,7 +23,7 @@ public class GameMasterV2 : MonoBehaviour
     {
       Debug.Log("Starting Dungeon Generation from Master Client");
       roomProperties.Add("DungeonGenFinished", false);
-      mapGen = GameObject.Find("Dungeon").GetComponent<MapGenAlgorithm>();
+      mapGen = GameObject.Find("DungeonManager").GetComponent<MapGenAlgorithm>();
       PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
       mapGen.OnDungeonFinished += SetDungeonGenComplete;
       StartCoroutine(WaitUntilDungeonGen());
@@ -38,7 +38,7 @@ public class GameMasterV2 : MonoBehaviour
   void SetDungeonGenComplete()
   {
     roomProperties["DungeonGenFinished"] = true;
-    roomProperties.Add("StartPosition", mapGen.spawnPositon + new Vector3(0,2,0));
+    roomProperties.Add("StartPosition", mapGen.spawnPositon);
     PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
   }
 
@@ -58,9 +58,16 @@ public class GameMasterV2 : MonoBehaviour
     HashSet<GameObject> dungeonTiles = PhotonNetwork.FindGameObjectsWithComponent(typeof(PhotonView));
     foreach (GameObject dungeonTile in dungeonTiles)
     {
-      dungeonTile.transform.SetParent(dungeonParent.transform);
+      try
+      {
+        dungeonTile.GetComponent<PlayerNavigation>();
+      }
+      catch
+      {
+        dungeonTile.transform.SetParent(dungeonParent.transform);
+      }
     }
-    //mapGen.gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();
+    dungeonParent.GetComponent<NavMeshSurface>().BuildNavMesh();
 
     //Spawn Player
     SpawnPlayer();

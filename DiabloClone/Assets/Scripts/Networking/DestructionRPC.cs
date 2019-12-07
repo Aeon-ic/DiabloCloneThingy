@@ -8,14 +8,19 @@ public class DestructionRPC : MonoBehaviourPun
   [PunRPC]
   void DestroyObject()
   {
-    Destroy(this.gameObject);
+    PhotonNetwork.Destroy(this.gameObject);
   }
 
-  void OnTriggerEnter(Collider collider)
+  //void OnTriggerEnter(Collider collider)
+  //{
+  //  if (collider.gameObject.CompareTag("Player"))
+  //  {
+  //    photonView.RPC("DestroyObject", RpcTarget.AllBuffered);
+  //  }
+  //}
+
+  public void DestroyBreakable()
   {
-    if (collider.gameObject.CompareTag("Player"))
-    {
-      photonView.RPC("DestroyObject", RpcTarget.AllBuffered);
-    }
+    photonView.RPC("DestroyObject", RpcTarget.AllBuffered);
   }
 }
