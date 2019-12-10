@@ -42,7 +42,6 @@ public class MapGenAlgorithm : MonoBehaviour
   //Temp
   //bool dunGenFinished = false;
   public GameObject startPrefab;
-  [HideInInspector]
   public Vector3 spawnPositon;
   public GameObject endPrefab;
   //GameObject startObj;

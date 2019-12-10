@@ -70,12 +70,14 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     }
     else
     {
+      Debug.Log("Joining or Creating Room");
       PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
     }
   }
 
   public override void OnRoomListUpdate(List<RoomInfo> roomList)
   {
+    Debug.Log("Updating RoomList");
     currRoomList = roomList;
     Dropdown dropRoomList = menu.roomListDropdown;
     dropRoomList.ClearOptions();
@@ -89,6 +91,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
     {
       foreach (RoomInfo roomInfo in roomList)
       {
+        Debug.Log(roomInfo.Name);
         roomData.Add(new Dropdown.OptionData(roomInfo.Name));
       }
     }
@@ -127,12 +130,10 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public override void OnConnectedToMaster()
   {
-    menu.ManageDebugText("<color=green>Connected to server</color>");
-
-    //PhotonNetwork.JoinOrCreateRoom("Meep", roomOptions, null);
     if (!PhotonNetwork.InLobby)
     {
       PhotonNetwork.JoinLobby();
+      menu.ManageDebugText("<color=green>Connected to server lobby</color>");
     }
   }
 
@@ -143,19 +144,24 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
 
   public override void OnJoinRandomFailed(short returnCode, string message)
   {
-    menu.ManageDebugText("<color=red>Failed to join random room.</color>" + "Creating new room." + message);
-    RoomOptions roomOptions = new RoomOptions
-    {
-      MaxPlayers = maxPlayers,
-      PlayerTtl = 0,
-      EmptyRoomTtl = 0
-    };
-    PhotonNetwork.CreateRoom(null, roomOptions);
+    menu.ManageDebugText("<color=red>Failed to join random room.</color>" + message);
+    //RoomOptions roomOptions = new RoomOptions
+    //{
+    //  MaxPlayers = maxPlayers,
+    //  PlayerTtl = 0,
+    //  EmptyRoomTtl = 0
+    //};
+    //PhotonNetwork.CreateRoom(null, roomOptions);
   }
 
   public override void OnJoinRoomFailed(short returnCode, string message)
   {
-    menu.ManageDebugText("<color=red>Failed to join random room.</color>" + message);
+    menu.ManageDebugText("<color=red>Failed to join room.</color>" + message);
+  }
+
+  public override void OnCreatedRoom()
+  {
+    menu.ManageDebugText("<color=green>Created room</color>");
   }
 
   public override void OnJoinedRoom()
@@ -181,6 +187,7 @@ public class PUNLauncher : MonoBehaviourPunCallbacks
   void OnLevelLoad()
   {
     int level = SceneManagerHelper.ActiveSceneBuildIndex;
+    Debug.Log(level);
     if (level == 0)
     {
       menu = GameObject.Find("Canvas").GetComponent<MainMenu>();

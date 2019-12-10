@@ -140,7 +140,7 @@ Transform:
   m_Children:
   - {fileID: 9215872183901664047}
   - {fileID: 6368323414245340441}
-  - {fileID: 7079965281879281800}
+  - {fileID: 2388713702046120356}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -273,18 +273,13 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &4774939633752332909
+--- !u!1001 &82334528259994433
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 4225754640998555751}
     m_Modifications:
-    - target: {fileID: -1565859434471321692, guid: b31e863d22a2eff4d8a5635486ca15f1,
-        type: 3}
-      propertyPath: ObservedComponents.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1610513492637939958, guid: b31e863d22a2eff4d8a5635486ca15f1,
         type: 3}
       propertyPath: m_Name
@@ -293,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 2306661758648879845, guid: b31e863d22a2eff4d8a5635486ca15f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.025631644
+      value: -0.0372833
       objectReference: {fileID: 0}
     - target: {fileID: 2306661758648879845, guid: b31e863d22a2eff4d8a5635486ca15f1,
         type: 3}
@@ -303,7 +298,7 @@ PrefabInstance:
     - target: {fileID: 2306661758648879845, guid: b31e863d22a2eff4d8a5635486ca15f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0005531311
+      value: -0.04196596
       objectReference: {fileID: 0}
     - target: {fileID: 2306661758648879845, guid: b31e863d22a2eff4d8a5635486ca15f1,
         type: 3}
@@ -362,9 +357,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b31e863d22a2eff4d8a5635486ca15f1, type: 3}
---- !u!4 &7079965281879281800 stripped
+--- !u!4 &2388713702046120356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2306661758648879845, guid: b31e863d22a2eff4d8a5635486ca15f1,
     type: 3}
-  m_PrefabInstance: {fileID: 4774939633752332909}
+  m_PrefabInstance: {fileID: 82334528259994433}
   m_PrefabAsset: {fileID: 0}

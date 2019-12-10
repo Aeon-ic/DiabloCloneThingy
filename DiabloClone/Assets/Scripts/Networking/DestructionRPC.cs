@@ -8,7 +8,7 @@ public class DestructionRPC : MonoBehaviourPun
   [PunRPC]
   void DestroyObject()
   {
-    PhotonNetwork.Destroy(this.gameObject);
+    Destroy(this.gameObject);
   }
 
   //void OnTriggerEnter(Collider collider)
